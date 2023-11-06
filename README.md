@@ -1,6 +1,6 @@
 <div align="center">
     <h3 align="center">
-        E-score
+        E-Score
     </h3>
     <h4 align="center">
         Aligning Protein Sequences Using Embedding Scores 
@@ -12,7 +12,7 @@
 
 <!-- ABOUT -->
 ## About
-The E-score project focuses on computing Global-regular and Global-end-gap-free alignment between any two protein sequences using their embedding vectors computed by state-of-art pre-trained models. 
+The E-Score project focuses on computing Global-regular and Global-end-gap-free alignment between any two protein sequences using their embedding vectors computed by state-of-art pre-trained models. 
 
 Instead of a fixed score between two pairs of amino acids(like BLOSUM matrices), the cosine similarity is calculated between the embedding vectors of two amino acids and used as the context-dependent score.
 
