@@ -1,48 +1,41 @@
-
-
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-
--->
-
-
-
-<br />
 <div align="center">
-
-<h3 align="center"> E-score</h3>
-
-
-  <p align="center">
-    Aligning Protein Sequences Using Embedding Scores
-    <br />
-  
-   
-  </p>
+    <h3 align="center">
+        E-score
+    </h3>
+    <h4 align="center">
+        Aligning Protein Sequences Using Embedding Scores 
+    </h4>
+    <h4 align="center">
+        Undergraduate Thesis - Analyzing Results
+    </h4>
 </div>
 
+<!-- ABOUT -->
+## About
+The E-score project focuses on computing Global-regular and Global-end-gap-free alignment between any two protein sequences using their embedding vectors computed by state-of-art pre-trained models. 
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-The E-score project focuses on computing Global-regular and Global-end-gap-free alignment between any two protein sequences using their embedding vectors computed by stat-of-art pre-trained models. Instead of a fixed score between two pairs of amino acids(like BLOSUM matrices), we use the cosine similarity between the embedding vectors of two amino acids and use it as the context-dependent score.
+Instead of a fixed score between two pairs of amino acids(like BLOSUM matrices), the cosine similarity is calculated between the embedding vectors of two amino acids and used as the context-dependent score.
 
 ## System Requirements
-Recommended Python Version: 3.10
+<b>Recommended Python Version:</b> 3.10
 <br />
-Recommended RAM: 24GB
-<br />
-Each of the models needs about 8-12GB of RAM and as the length of the sequences goes up, the needed RAM increases too. 
+<b>Recommended RAM:</b> 24GB
+* Each of the models needs about 8-12GB of RAM and as sequence length increases, RAM requirements do. 
 
 ## Installation
-You can install all of the needed packages using requirement.txt. Python virtual environment is recommended.
+General:
+```sh
+# Virtual Environment Creation
+python -m venv venv
+source ./venv/bin/activate
 
+# Install Requirements
+pip install -r requirements.txt
 ```
-pip3 install -r requirement.txt
-```
+SageMaker Notebook (Jupyter Lab):
+* Run the notebook with `!pip install -r requirements.txt` in the **Imports** code block.
 
-## Available Models
+## Models
 | Models | Embedding Dim | Pre-trained on
 | :---         |     :---:     |  :---:     | 
 | ProtT5   | 1024   | Uniref50 |
@@ -55,27 +48,29 @@ pip3 install -r requirement.txt
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-The program is designed to get a fasta file as an input and compute the alignment based on chosen parameters.
-<br />
-By calling the alignment_file_TXT function and passing the needed parameters (which are described below) the output would be a text file containing the computed alignment, its score, and the alignment visualization.
+**Input**: fasta file
+
+**Purpose**: Computes the alignment for the given fasta file based on chosen parameters (see **Parameters and Descriptions**). Calls the `alignment_file_TXT` function.
+
+**Result**: Outputs a text file in the `saving_add` directory containing the computed alignment, score, and alignment visualization.
 
 ### Parameters and Descriptions
-
 | Parameter | Description |
 | :---         |     :---:     | 
-| saving_add   | the path to the directory for the output   | 
-| seqs_path    | the path of the directory for the FASTA file containing two protein sequences       | 
-| scoring_type  | the embedding method used to produce the embedding vectors; allowed values are: ProtT5, ESM2, ProtBert, ProtAlbert, ESM1b, ProtXLNet     | 
-| alignment_type    | allowed values are Global-regular or Global-end-gap-free     | 
-| gap_penalty   |  default = -1; Recommended Values: -4, -3, -2, -1.5, -1, -0.5    |
-| gap_extension_penalty   |default = -0.2; Recommended Values: -1, -0.8, -0.5, -0.3, -0.2, -0.1      | 
+| saving_add   | Path to output directory   | 
+| seqs_path    | Path to the FASTA file containing two protein sequences       | 
+| scoring_type  | Model for embedding production: ProtT5, ESM2, ProtBert, ProtAlbert, ESM1b, ProtXLNet     | 
+| alignment_type    | "Global-regular" or "Global-end-gap-free"     | 
+| gap_penalty   |  **default** = -1; Recommended Values: -4, -3, -2, -1.5, -1, -0.5    |
+| gap_extension_penalty   |**default** = -0.2; Recommended Values: -1, -0.8, -0.5, -0.3, -0.2, -0.1      | 
 
-The output file will be named "FastaFileName_ScoringType_AlignmentType_GapPenalty_GapExtensionPenalty_Alignment.txt".
-### Usage Examples
+The output file will be named: 
+`<fasta_file_name>_<scoring_type>_<alignment_type>_<gap_penalty>_<gap_extension_penalty>_Alignment.txt`
 
+### Usage Example
 ```python
-saving_add =  "/content/"
-seqs_path = "Test2.fasta"
+saving_add =  "./content/"
+seqs_path = "tests/Test2.fasta"
 scoring = "ProtT5" 
 alignment_type = "Global-regular" 
 gap_penalty = -1
@@ -126,22 +121,3 @@ Seq 1 : 272   NWFLLFCRICIYLNSAINPVIYNLMS   297
                            NS  NPV Y L  
 Seq 2 : 285   VYAFPVSVCLAHSNSCLNPVLYCLVR   310
 ```
-
-## Google Colab
-We provided a Google colab containing the [E-score](https://colab.research.google.com/drive/1DJRt6zvfg6Qc-kaTjgRetl6Emmvc11gW?usp=sharing) notebook.
-
-
-<!-- CONTACT -->
-## Contact
-
-Sepehr Ashrafzadeh - sashra29@uwo.ca
-<br />
-Lucian Ilie - ilie@uwo.ca
-
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
