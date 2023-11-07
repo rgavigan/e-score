@@ -9,6 +9,7 @@ biopython==1.81
 biothings-client==0.3.0
 biotite==0.37.0
 blinker==1.6.2
+blosum
 cachetools==5.3.1
 celery==5.3.4
 certifi==2023.7.22
@@ -86,6 +87,7 @@ requests-oauthlib==1.3.1
 rsa==4.9
 safetensors==0.3.3
 scipy==1.10.1
+seaborn
 sentencepiece==0.1.99
 six==1.16.0
 sympy==1.12
