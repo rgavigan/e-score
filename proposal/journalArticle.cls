@@ -152,21 +152,21 @@
 %	BIBLIOGRAPHY
 %---------------------------------------------
 
-\usepackage[
-	backend=biber, % Use the biber backend for compiling the bibliography
-	citestyle=authoryear, % In-text citation style for APA, numeric otherwise
-	bibstyle=numeric, % Bibliography style
-	sorting=nty, % Order references by name/title/year, set to none to do it in order they appear
-        style=apa % Override to APA for submission
-]{biblatex}
-
-% The Superior Way to Format Bibliography (Not for submission cause of requirements)
 % \usepackage[
 % 	backend=biber, % Use the biber backend for compiling the bibliography
-% 	citestyle=numeric, % In-text citation style for APA, numeric otherwise
+% 	citestyle=authoryear, % In-text citation style for APA, numeric otherwise
 % 	bibstyle=numeric, % Bibliography style
-% 	sorting=none, % Order references by name/title/year, set to none to do it in order they appear
+% 	sorting=nty, % Order references by name/title/year, set to none to do it in order they appear
+%         style=apa % Override to APA for submission
 % ]{biblatex}
+
+% The Superior Way to Format Bibliography (Not for submission cause of requirements)
+\usepackage[
+	backend=biber, % Use the biber backend for compiling the bibliography
+	citestyle=numeric, % In-text citation style for APA, numeric otherwise
+	bibstyle=numeric, % Bibliography style
+	sorting=none, % Order references by name/title/year, set to none to do it in order they appear
+]{biblatex}
 
 %---------------------------------------------
 %	TABLES

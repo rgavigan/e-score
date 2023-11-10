@@ -22,7 +22,7 @@
 %---------------------------------------------
 %	TITLE SECTION
 %---------------------------------------------
-\title{Explaining embedding vector results for alignments\\ Thesis proposal (CS 4490Z)}
+\title{Explaining embedding results for scoring alignments\\ Thesis proposal (CS 4490Z)}
 
 % Authors are listed in a comma-separated list with superscript numbers indicating affiliations
 % \thanks{} is used for any text that should be placed in a footnote on the first page, such as the corresponding author's email, journal acceptance dates, a copyright/license notice, keywords, etc
@@ -139,7 +139,7 @@ The embeddings produced for a model, calculated in Equation \ref{eq:embedding}, 
     \label{eq:embedding}
 \end{equation}
 
-Calculating the cosine similarity between two vectors \(B = (B_i)_{i=1..n}\) is shown in Equation \ref{eq:cossim}.
+Calculating the cosine similarity between two vectors \(A = (A_i)_{i=1..n}\) and \(B = (B_i)_{i=1..n}\) is shown in Equation \ref{eq:cossim}.
 
 \begin{equation}
 	CosSim(A, B) = cos(\theta) \equiv \frac{A \cdot B}{\Vert A \Vert \Vert B \Vert} \equiv \frac{\sum\limits_{i=1}^{n} A_iB_i}{\sqrt{\sum\limits_{i=1}^{n} A_i^2}\sqrt{\sum\limits_{i=1}^{n} B_i^2}}
