@@ -11,6 +11,7 @@
 
 \usepackage{etoolbox} % Required for conditional logic and easily changing commands
 \usepackage{lastpage} % Reference to the last page
+\usepackage{amsmath}
 
 \newtoggle{unnumberedsections} % Create toggle for a class option
 \settoggle{unnumberedsections}{false} % Default value for the class option
@@ -20,6 +21,7 @@
 \ProcessOptions\relax % Process class options
 
 \LoadClass[twocolumn]{article} % Load the base class
+
 %\raggedbottom
 %---------------------------------------------
 %	REQUIRED PACKAGES AND MISC CONFIGURATIONS
@@ -70,8 +72,11 @@
 
 \fancyhf{} % Clear default headers/footers
 
-\fancyhead[RO]{\small\textit{\runninghead}} % Right-odd page header
-\fancyhead[LO]{\small\textbf{Page \thepage{} of \pageref{LastPage}}} % Left-odd page header
+\fancyhead[R]{\small\textit{\runninghead}} % Right-odd page header
+\fancyhead[L]{\small\textbf{Page \thepage{} of \pageref{LastPage}}} % Left-odd page header
+
+%\fancyfoot[R]{\small\textbf{\thepage}} % Right-odd page footer
+%\fancyfoot[L]{\footnotesize\footertext} % Left-odd page footer
 
 %---------------------------------------------
 %	SECTIONS
@@ -132,7 +137,7 @@
 \setlength{\thanksmarkwidth}{3pt} % Left margin for the first \thanks line
 \setlength{\thanksmargin}{-3pt} % Left margin for the second and onwards \thanks line
 
-\patchcmd{\maketitle}{plain}{}{}{} % Set the headers and footers style
+\patchcmd{\maketitle}{plain}{fancy}{}{} % Set the headers and footers style
 
 %---------------------------------------------
 %	ABSTRACT CUSTOMIZATION

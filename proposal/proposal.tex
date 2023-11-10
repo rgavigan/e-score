@@ -42,7 +42,6 @@
 %------------------------------------------
 \begin{document}
 \maketitle % Output the title section
-
 %---------------------------------------------
 %	STRUCTURED ABSTRACT
 %---------------------------------------------
@@ -105,16 +104,54 @@ Improvements in transformer models for the \textit{E}-score alignment scoring me
 
 % Protein Transformers
 \subsection{Protein transformers}
-The \textit{E}-score alignment method depends on several protein transformer models to generate embeddings for a protein sequence prior to calculating cosine similarity. These transformers include ProtT5, ProtBert, ProtAlbert, and ProtXLNet\footnote{https://github.com/agemagician/ProtTrans} from the ProtTrans project \autocite{Elnaggar:2021}, as well as ESM1b and ESM2\footnote{https://github.com/facebookresearch/esm} from the Meta Fundamental AI Research Protein (FAIR) Team \autocite{Rives:2021}.
+The \textit{E}-score alignment method depends on several protein transformer models (shown in Table \ref{tab:transformers}) to generate embeddings for a protein sequence prior to calculating cosine similarity. These transformers include ProtT5, ProtBert, ProtAlbert, and ProtXLNet\footnote{https://github.com/agemagician/ProtTrans} from the ProtTrans project \autocite{Elnaggar:2021}, as well as ESM1b and ESM2\footnote{https://github.com/facebookresearch/esm} from the Meta Fundamental AI Research Protein (FAIR) Team \autocite{Rives:2021}.
 
+\begin{table} % Single column table
+	\caption{Transformer models available in the \textit{E}-score method.}
+	\centering
+	\begin{tabular}{ |c|c|c| }
+		\toprule
+		Model & Embedding Dim & Pre-Trained On \\
+		\midrule
+		ProtT5 & 1024 & UniRef50 \\
+		ProtBert & 1024 & UniRef100 \\
+		ProtAlbert & 4096 & UniRef100 \\
+            ProtXLNet & 1024 & UniRef100 \\
+            ESM1b & 1280 & UniRef50 \\
+            ESM2 & 1280 & UniRef50 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:transformers}
+\end{table}
 
+The ProtT5 model's average \textit{E}-score performance was the most similar to the BLOSUM62 matrix, shown in Figure \ref{fig:escoreheatmap}. BLOSUM62 is the best-performing old method for scoring alignments \autocite{Ashrafzadeh:2023}, making it a valuable comparison for the \textit{E}-score models. ProtT5 serves as a strong benchmark to compare other models to in understanding embedding \textit{E}-score performance.
 
 % Embedding Vectors
 \subsection{Embedding vectors}
-
+The embedding vector produced for a given protein sequence varies based on the model that was used. For example, the embedding for a protein sequence of 310 residues using ProtT5 will have the dimensions [310, 1024]. The embedding dimension outlined in Table \ref{tab:transformers} determines the columns of the embedding vector. The dimensionality of these vectors represents the number of features encoded in the embedding, and is a fixed value for a given model.
 
 % E-Score Calculations
 \subsection{\textit{E}-score calculations}
+The embeddings produced for a model, calculated in Equation \ref{eq:embedding}, are used as the input to calculate the cosine similarity.
+
+\begin{equation}
+    E(P) = GetEmbeddings(Model = ProtT5)
+    \label{eq:embedding}
+\end{equation}
+
+Calculating the cosine similarity between two vectors \(B = (B_i)_{i=1..n}\) is shown in Equation \ref{eq:cossim}.
+
+\begin{equation}
+	CosSim(A, B) = cos(\theta) \equiv \frac{A \cdot B}{\Vert A \Vert \Vert B \Vert} \equiv \frac{\sum\limits_{i=1}^{n} A_iB_i}{\sqrt{\sum\limits_{i=1}^{n} A_i^2}\sqrt{\sum\limits_{i=1}^{n} B_i^2}}
+	\label{eq:cossim}
+\end{equation}
+
+\textit{E}-score is calculated by taking the cosine similarity between the embedding vector for two residues (\(i, j\)), shown in Equation \ref{eq:escore} where \(P_1\) and \(P_2\) are proteins \autocite{Ashrafzadeh:2023}.
+
+\begin{equation}
+    \textit{E}\mbox{-}score(i,j) = CosSim(E(P_1)_i, E(P_2)_j)
+    \label{eq:escore}
+\end{equation}
 
 %---------------------------------------------
 %	RESEARCH GOAL AND OBJECTIVES
@@ -151,47 +188,68 @@ With knowledge about the factors contributing to embedding performance, improvem
 \section{Research Approach and Methodology}
 
 \subsection{Technical issues}
+Batch processing and analyzing a large dataset of FASTA files is a time-consuming, computationally-expensive process. Attention to ensure the mathematical basis and reasoning for analysis prior to running extensive notebook jobs is critical, and smaller sample calculations will be performed in advance to validate the anticipated results.
 
 \subsection{Data}
-Outline data to be used for testing and where to get it (protein sequences)
+Sequences will be obtained from sample multiple sequence alignments from the Conserved Domain Database \autocite{Marchler-Bauer:2015} by NCBI. The reference alignments that will be used will be taken from the \textit{E}-score paper's 49 curated multiple sequence alignments \autocite{Ashrafzadeh:2023}. A sample FASTA file that will be used as input is shown in Figure \ref{fig:sequence}.
+
+\begin{figure} % Single column figure
+	\includegraphics[width=\linewidth]{Figures/sequences.png}
+	\caption{Sample FASTA input file containing two sequences from the \textit{7tm\_GPCRs} MSA.}
+	\label{fig:sequence}
+\end{figure}
 
 \subsection{Embedding vectors and cosine similarity}
-Outline process of creating embedding vectors and getting cosine similarity for e-score
+With FASTA input files containing two protein sequences, the embedding vectors and cosine similarity will both be extracted independently for analysis and visualization. By using the \textit{E}-score notebook as a starting point, modifications and new methods will be created to extract this information for a provided FASTA file and model.
+
+Defined in the \textit{E}-score analysis\footnote{https://github.com/rgavigan/e-score} repository are methods to retrieve this data, such as \(get\_embedding()\).
 
 \subsection{Data analysis}
-Outline algorithms, tools, python libraries/frameworks that will be used to visualize and analyze data and how it will be done.
+Analysis of embedding vectors and cosine similarity to generate useful visualizations and perform statistical analysis on results will be done in the \textit{E}-score analysis notebook. The following tools will be used:
+\begin{itemize}
+    \item{Seaborn \autocite{Waskom:2021} and Matplotlib \autocite{Hunter:2007} for data visualization}
+    \item{SciPy \autocite{Virtanen:2020} and NumPy \autocite{Harris:2020} for statistical significance testing}
+    \item{Scikit-learn \autocite{Pedregosa:2011} for normalization}
+\end{itemize}
 
 % Heatmaps Figure
 \begin{figure*} % Two column figure (notice the starred environment)
 	\includegraphics[width=\linewidth]{Figures/Escorematrices.jpeg}
-	\caption{Heatmaps of (a) BLOSUM62 matrix (scaled to -1..1) and three aligned matrices of average E-scores for the NBD\_sugar-kinase\_HSP70\_actin MSA: (b) ProtT5-score, (c) ProtAlbert-score, and (d) ProtXLNet-score.}
+	\caption{Heatmaps of (a) BLOSUM62 matrix (scaled to -1..1) and three aligned matrices of average E-scores for the NBD\_sugar-kinase\_HSP70\_actin MSA: (b) ProtT5-score, (c) ProtAlbert-score, and (d) ProtXLNet-score \autocite{Ashrafzadeh:2023}.}
 	\label{fig:escoreheatmap}
 \end{figure*}
 
+\subsubsection{Embeddings}
+Normalizing the embeddings generated between models to have a consistent scale and distribution is required prior to analysis. Common techniques for normalization to consider include min-max scaling, Z-Score standardization, and L2 normalization.
+
+The distribution of normalized values can be visualized in multiple ways including histograms, kernel density plots, or box plots. Summary statistics (mean, median, deviation, range) may provide additional insight.
+
+Correlations and differences between the embeddings can be visualized on a per-residue basis with heatmaps.
+
+Statistical tests are required to validate and assess the significance of the visualized results. ANOVA, t-tests, or other means can be used to assess significance.
+
 % Visualizing E-Score Dispersion
-\subsubsection{Visualizing \textit{E}-score dispersion}
+\subsubsection{\textit{E}-score}
 
 To gain a deeper understanding of the \textit{E}-score results generated for the different embeddings as shown in Figure \ref{fig:escoreheatmap}, dispersion will also be visualized. By visualizing the standard deviation and range of the results for each embedding type, there will be more insight to draw conclusions from. This will help understand why cosine similarity mean results are mostly positive (0..1), and why different models generate broader or narrower average ranges.
-
-The \href{https://github.com/rgavigan/e-score}{\textit{E}-score analysis notebook} will contain all visualization calculations and results for \textit{E}-score dispersion.
-
-% Comparing Embedding Models
-\subsubsection{Comparing embedding models}
-
-Average and dispersion \textit{E}-score results will be compared between the available embedding models to understand the factors contributing to the better performance of particular models over other models. This data will be used to draw conclusions about embedding performance differences.
 
 % Modifying Parameters
 \subsubsection{Modifying parameters}
 
-By modifying different parameters and generating resulting \textit{E}-scores for different combinations from insight gained from differences between models, a greater understanding of the primary factors contributing to performance will provide insight to improve embeddings. Examples of parameters that can be modified are alignment type, gap penalty, and gap extension penalty.
+By modifying different parameters and generating \textit{E}-scores for different combinations from insight gained by comparing different transformer models, further understanding of the primary factors contributing to performance will provide insight to improve embeddings. Examples of parameters that can be modified are alignment type, gap penalty, and gap extension penalty.
 
 \subsection{Interpretation}
+Through the visualizations and statistical analysis performed on embedding vectors and cosine similarity data, comparing properties that are present in stronger models (i.e. ProtT5) with weaker models will be a focus for interpreting the relevance of the analysis.
+
+By benchmarking the models against one another and extracting features present in the stronger performing models, insight about why performance differences are present will be obtained and used to explain performance improvement approaches.
 
 \subsection{Type of results}
+Visualizations, statistical comparisons/tables, and inference using empirical findings to answer the research questions will be the anticipated results from this study.
 
 \subsection{Challenges or threats}
+Interpreting the meaning of embeddings is a challenging process because embeddings lack direct human interpretability due to their large dimensionality. Conducting appropriate statistical tests to validate findings and visualizing results to be human-readable is crucial.
 
-\subsection{Validation}
+Representative data for input sequences is necessary to minimize the chance of biased results.
 
 %---------------------------------------------
 %	NOVELTY AND IMPACT
