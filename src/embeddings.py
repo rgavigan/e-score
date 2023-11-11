@@ -1,7 +1,9 @@
 # Import PyTorch
 import torch
+
 from Bio import SeqIO
 import re
+from src.models import get_model
 
 # Retrieve the device (CPU or GPU)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -138,44 +140,70 @@ def get_embeddings_XLNet(XLNet, XLNet_tokenizer, sequences, n):
         seq_emd = embedding[seq_num][padded_seq_len - seq_len : padded_seq_len - 2]
         features.append(seq_emd)
 
-
     return features
 
-def get_embeddings(sequence_1, sequence_2, Model = None, Model_tokenizer = None, model_name = "ProtT5"):
-    """ Gets the embeddings for sequence_1 and sequence_2 for the provided model
+def get_pair_embeddings(sequence_1, sequence_2, Model = None, Model_tokenizer = None, model_name = "ProtT5"):
+    """ Gets the embeddings for a pair of sequences, sequence_1 and sequence_2, for the provided model name
     
     Args:
         sequence_1: the first protein sequence
         sequence_2: the second protein sequence
-        Model: the model generating the embeddings
-        Model_tokenizer: the tokenizer for the model
+        Model: the model
+        Model_tokenizer: the model's tokenizer
         model_name: the model's name
     
     Returns:
-        emb1, emb2: the two resulting embeddings
+        embeddings[]: the resulting embeddings
     """
-    emb1, emb2 = [], []
-    if model_name == "ProtT5":
-        emb1 = get_embeddings_T5(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_T5(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-        
-    elif model_name == "ProtBert":
-        emb1 = get_embeddings_ProtBert(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_ProtBert(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-        
-    elif model_name == "ProtAlbert":
-        emb1 = get_embeddings_ProtAlbert(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_ProtAlbert(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-        
-    elif model_name == "ProtXLNet":
-        emb1 = get_embeddings_XLNet(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_XLNet(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-        
-    elif model_name == "ESM1b":
-        emb1 = get_embeddings_ESM1b(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_ESM1b(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-        
-    elif model_name == "ESM2":
-        emb1 = get_embeddings_ESM2(Model, Model_tokenizer, [sequence_1], 1)[0].cpu().numpy()
-        emb2 = get_embeddings_ESM2(Model, Model_tokenizer, [sequence_2], 1)[0].cpu().numpy()
-    return emb1, emb2
+    embeddings = []
+
+    if model_name == 'ProtT5':
+        embeddings = get_embeddings_T5(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+    elif model_name == 'ProtBert':
+        embeddings = get_embeddings_ProtBert(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+    elif model_name == 'ProtAlbert':
+        embeddings = get_embeddings_ProtAlbert(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+    elif model_name == 'ProtXLNet':
+        embeddings = get_embeddings_XLNet(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+    elif model_name == 'ESM1b':
+        embeddings = get_embeddings_ESM1b(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+    elif model_name == 'ESM2':
+        embeddings = get_embeddings_ESM2(Model, Model_tokenizer, [sequence_1, sequence_2], 2)
+
+    # Convert tensors to numpy arrays
+    embeddings = [embedding.cpu().numpy() for embedding in embeddings]
+
+    return embeddings
+
+def get_fasta_embeddings(fasta_file, Model = None, Model_tokenizer = None, model_name = "ProtT5"):
+    """ Gets the embeddings for a given fasta file for the provided model name
+    
+    Args:
+        fasta_file: the fasta file to get embeddings for
+        Model: the model
+        Model_tokenizer: the model's tokenizer
+        model_name: the model's name
+    
+    Returns:
+        embeddings[]: the resulting embeddings
+    """
+    sequences = load_fasta(fasta_file)
+    embeddings = []
+
+    if model_name == 'ProtT5':
+        embeddings = get_embeddings_T5(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+    elif model_name == 'ProtBert':
+        embeddings = get_embeddings_ProtBert(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+    elif model_name == 'ProtAlbert':
+        embeddings = get_embeddings_ProtAlbert(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+    elif model_name == 'ProtXLNet':
+        embeddings = get_embeddings_XLNet(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+    elif model_name == 'ESM1b':
+        embeddings = get_embeddings_ESM1b(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+    elif model_name == 'ESM2':
+        embeddings = get_embeddings_ESM2(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
+
+    # Convert tensors to numpy arrays
+    embeddings = [embedding.cpu().numpy() for embedding in embeddings]
+    
+    return embeddings
