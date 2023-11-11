@@ -1,0 +1,89 @@
+%---------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%---------------------------------------------
+\documentclass[
+	letterpaper, % Letter Paper (Required for 4490Z)
+	12pt, % Font Size %% MODIFY : FOR SUBMISSION ONLY - 10 NORMALLY
+	%twoside, % Commented out for fixed headers/footers
+]{journalArticle}
+
+% BibLaTeX bibliography file
+\addbibresource{references.bib}
+
+% Running Header
+\runninghead{Gavigan, Riley}
+
+% Footer Content
+\footertext{}
+
+% Page Counter Starting Number
+\setcounter{page}{1}
+
+%---------------------------------------------
+%	TITLE SECTION
+%---------------------------------------------
+\title{Explaining embedding results for scoring alignments}
+
+% Authors are listed in a comma-separated list with superscript numbers indicating affiliations
+% \thanks{} is used for any text that should be placed in a footnote on the first page, such as the corresponding author's email, journal acceptance dates, a copyright/license notice, keywords, etc
+\author{
+	Riley Gavigan\textsuperscript{1}, Lucian Ilie\textsuperscript{1}\thanks{Thesis supervisor - csd.uwo.ca/\textasciitilde ilie}, Nazim Madhavji\textsuperscript{1}\thanks{Course supervisor}\\
+}
+
+% Affiliations are output in the \date{} command
+\date{{\footnotesize{\textsuperscript{\textbf{1}}Department of Computer Science, University of Western Ontario, London, N6A 5B7, Ontario, Canada\\}}\vspace{1em}November 27, 2023\\}
+
+% Full-width General Abstract
+\renewcommand{\maketitlehookd}{%
+	\begin{abstract}
+		\noindent
+	\end{abstract}
+}
+%------------------------------------------
+\begin{document}
+
+\maketitle % Output the title section
+%---------------------------------------------
+%	INTRODUCTION
+%---------------------------------------------
+\section{Introduction}
+
+
+%---------------------------------------------
+%	MATERIALS AND METHODS
+%---------------------------------------------
+\section{Materials and Methods}
+
+
+%---------------------------------------------
+%	RESULTS
+%---------------------------------------------
+\section{Results}
+
+
+%---------------------------------------------
+%	DISCUSSION AND CONCLUSION
+%---------------------------------------------
+\section{Discussion and Conclusion}
+
+
+%---------------------------------------------
+%	ACKNOWLEDGEMENTS
+%---------------------------------------------
+\section{Acknowledgements}
+Dr. Lucian Ilie provided thesis supervision and guidance. This research built upon the initial \textit{E}-score method research \autocite{Ashrafzadeh:2023}.
+
+%---------------------------------------------
+%	SUPPLEMENTARY DATA
+%---------------------------------------------
+\section{Supplementary Data}
+A supplementary file containing [Insert Supplementary Information] is available \href{https://rileygavigan.com/e-score-supplementary-data.pdf}{online}.
+
+
+%---------------------------------------------
+%	REFERENCES
+%---------------------------------------------
+\printbibliography % Output the bibliography
+
+%---------------------------------------------
+\end{document}
