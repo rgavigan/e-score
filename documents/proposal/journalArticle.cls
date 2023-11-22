@@ -56,6 +56,8 @@
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
+%% MODIFY : FOR SUBMISSION ONLY
+%\usepackage{newtxtext,newtxmath}
 
 \linespread{1.05} % Increase line spacing slightly
 
@@ -159,6 +161,8 @@
 % 	sorting=nty, % Order references by name/title/year, set to none to do it in order they appear
 %         style=apa % Override to APA for submission
 % ]{biblatex}
+
+%% MODIFY : FOR SUBMISSION ONLY
 
 % The Superior Way to Format Bibliography (Not for submission cause of requirements)
 \usepackage[
