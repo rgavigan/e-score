@@ -57,7 +57,7 @@
 
 %\usepackage[sc]{mathpazo} % Use the Palatino font
 %% MODIFY : FOR SUBMISSION ONLY
-\usepackage{newtxtext,newtxmath}
+% \usepackage{newtxtext,newtxmath}
 
 \linespread{1.05} % Increase line spacing slightly
 
@@ -89,13 +89,13 @@
 \iftoggle{unnumberedsections}{ % Conditional logic for the unnumbered sections class options
 	\setcounter{secnumdepth}{0} % Don't number sections at any level
 }{
-	\setcounter{secnumdepth}{2} % Number sections
+	\setcounter{secnumdepth}{1} % Number sections
 }
 
 \titleformat
 	{\section} % Section type being modified
 	[block] % Section layout type, can be: hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
-	{\raggedright\Large\bfseries} % Text formatting of the whole section, i.e. label and title
+	{\Large\bfseries\centering} % Text formatting of the whole section, i.e. label and title
 	{\thesection} % Section label (e.g. number) and its formatting
 	{0.5em} % Horizontal space between the section label and title
 	{} % Code before the section title
@@ -154,23 +154,21 @@
 %	BIBLIOGRAPHY
 %---------------------------------------------
 
-\usepackage[
-	backend=biber, % Use the biber backend for compiling the bibliography
-	citestyle=authoryear, % In-text citation style for APA, numeric otherwise
-	bibstyle=numeric, % Bibliography style
-	sorting=nty, % Order references by name/title/year, set to none to do it in order they appear
-        style=apa % Override to APA for submission
-]{biblatex}
-
 %% MODIFY : FOR SUBMISSION ONLY
-
-% The Superior Way to Format Bibliography (Not for submission cause of requirements)
 % \usepackage[
 % 	backend=biber, % Use the biber backend for compiling the bibliography
-% 	citestyle=numeric, % In-text citation style for APA, numeric otherwise
+% 	citestyle=authoryear, % In-text citation style for APA, numeric otherwise
 % 	bibstyle=numeric, % Bibliography style
-% 	sorting=none, % Order references by name/title/year, set to none to do it in order they appear
+% 	sorting=nty, % Order references by name/title/year, set to none to do it in order they appear
+%         style=apa % Override to APA for submission
 % ]{biblatex}
+
+\usepackage[
+	backend=biber, % Use the biber backend for compiling the bibliography
+	citestyle=numeric, % In-text citation style for APA, numeric otherwise
+	bibstyle=numeric, % Bibliography style
+	sorting=none, % Order references by name/title/year, set to none to do it in order they appear
+]{biblatex}
 
 %---------------------------------------------
 %	TABLES
