@@ -3,7 +3,7 @@ import torch
 
 from Bio import SeqIO
 import re
-from src.models import get_model
+from models import get_model
 
 # Retrieve the device (CPU or GPU)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -209,7 +209,7 @@ def get_fasta_embeddings(fasta_file, Model = None, Model_tokenizer = None, model
     return embeddings
 
 if __name__ == "__main__":
-    # Load all FASTA sequences from data/finetuning/cd00012.fasta as a test
-    sequences = load_fasta("data/finetuning/cd00012.fasta")
+    # Load all FASTA sequences from test file
+    sequences = load_fasta("data/finetuning/msa-proteins/cd00012.fasta")
     for sequence in sequences:
         print(sequence)
