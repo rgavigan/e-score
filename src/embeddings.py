@@ -207,3 +207,9 @@ def get_fasta_embeddings(fasta_file, Model = None, Model_tokenizer = None, model
     embeddings = [embedding.cpu().numpy() for embedding in embeddings]
     
     return embeddings
+
+if __name__ == "__main__":
+    # Load all FASTA sequences from data/finetuning/cd00012.fasta as a test
+    sequences = load_fasta("data/finetuning/cd00012.fasta")
+    for sequence in sequences:
+        print(sequence)
