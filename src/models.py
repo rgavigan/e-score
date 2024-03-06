@@ -16,7 +16,7 @@ torch.set_grad_enabled(False)
 
 def ESM1b_initialize():
     print("Initializing ESM1b")
-
+    
     ESM1b, alphabet = esm.pretrained.esm1b_t33_650M_UR50S()
     batch_converter = alphabet.get_batch_converter()
     ESM1b.eval()  # disables dropout for deterministic results
@@ -98,12 +98,12 @@ def get_model(model_name):
         Model, Tokenizer = ProtT5_initialize()
     elif model_name == "ProtBert":
         Model, Tokenizer = ProtBert_initialize()
-    elif model_name ==  "ProtAlbert":
+    elif model_name == "ProtAlbert":
         Model, Tokenizer = ProtAlbert_initialize()
-    elif model_name ==  "ProtXLNet":
+    elif model_name == "ProtXLNet":
         Model, Tokenizer = XLNet_initialize()
-    elif model_name ==  "ESM1b":
+    elif model_name == "ESM1b":
         Model, Tokenizer = ESM1b_initialize()
-    elif model_name ==  "ESM2":
+    elif model_name == "ESM2":
         Model, Tokenizer = ESM2_initialize()
     return Model, Tokenizer

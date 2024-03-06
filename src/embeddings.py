@@ -189,6 +189,7 @@ def get_fasta_embeddings(fasta_file, Model = None, Model_tokenizer = None, model
     """
     sequences = load_fasta(fasta_file)
     embeddings = []
+    print(model_name)
 
     if model_name == 'ProtT5':
         embeddings = get_embeddings_T5(Model, Model_tokenizer, [sequence[1] for sequence in sequences], len(sequences))
