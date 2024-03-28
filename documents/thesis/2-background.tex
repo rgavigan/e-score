@@ -1,0 +1,31 @@
+\chapter{Background and Related Work}
+
+\section{Natural Language Processing}
+Natural Language Processing is the branch of artificial intelligence that deals with computers understanding text and spoken words (\cite{Khurana:2023}). One significant advancement was the introduction of \glspl{transformer} (\cite{Vaswani:2017}). Before Transformers, methods such as word2vec (\cite{Mikolov:2013}) and GloVe (\cite{Pennington:2014}) generated contextually-independent embedding vectors for words. Transformer models introduced contextual embeddings generated through self-attention (\cite{Vaswani:2017}).
+
+\noindent Information about each model serving as foundation for \textit{E}-score models:
+\begin{itemize}
+    \item{\gls{T5}: Text-to-text approach. Input and output are both text strings. Relies of transfer learning for downstream fine-tuning (\cite{Raffel:2020}). GLUE benchmark average: 88.7}
+    \item{\gls{BERT}: Bidirectional training using masked language modeling for a deeper sense of context from sequential reading (\cite{Devlin:2018}).}
+    \item{\gls{ALBERT}: A lightweight version of BERT that uses parameter-reduction techniques to reduce training time and memory limitations (\cite{Zhenzhong:2020}). GLUE benchmark average: 87.3}
+    \item{\gls{RoBERTa}: A stronger version of BERT that was trained longer; removed next-sentence pretraining; and trained with larger mini-batches and learning rates (\cite{Liu:2019}). GLUE benchmark average: 86.4}
+    \item{XLNet: Designed to overcome the pretrain-finetune discrepency BERT suffered from, outperforming BERT significantly on 20 tasks (\cite{Yang:2022}). GLUE benchmark average: 87.5}
+\end{itemize}
+
+\section{\textit{E}-score}
+Finding similarities among protein sequences is essential in identifying protein structure and function. This is done by computing alignments between sequences. The \gls{BLAST} program\footnote{Exceeds 108,000 citations, according to Google Scholar.} is one of the most widely used tools in science (\cite{Atschul:1990}). An essential part of BLAST is the scoring function; the most widely used functions are provided by the \gls{BLOSUM} (\cite{Henikoff:1992}).
+
+The \textit{E}-score protein alignment scoring method (\cite{Ashrafzadeh:2023}) is another one of these scoring functions that outperforms state-of-the-art methods. \textit{E}-score's improved performance was supported by comparing ProtT5 (\cite{Elnaggar:2021}) results with BLOSUM45 (\cite{Henikoff:1992,Ashrafzadeh:2023}). \textit{E}-score uses \gls{transformer} models to produce contextual embeddings for the \glspl{residue} in \gls{peptide} sequences. Model information is available in Table \ref{tab:prottrans}.
+
+Contextual embeddings describe the position of a \gls{residue} in a high-dimensional vector space. Contextual embeddings have many important applications in biology, including structure prediction (\cite{Senior:2020, Yang:2019, Jumper:2021}) and function prediction (\cite{Kulmanov:2019, Gligorijevic:2021, Lai:2021}). The \textit{E}-score alignment method is another application for these embeddings, outperforming the state-of-the-art methods (\cite{Ashrafzadeh:2023}) by completely changing the way alignments are computed.
+
+The embedding vector produced for each protein \gls{residue} varies based on the model. Embedding dimensions and pre-training dataset are outlined in the \href{https://github.com/rgavigan/e-score/blob/main/README.md}{research code repository}. The dimensionality of the embedding vectors represents the number of features encoded in the embedding, and is a fixed value for each model.
+
+Calculating the cosine similarity between two vectors \(A = (A_i)_{i=1..n}\) and \(B = (B_i)_{i=1..n}\): \(\frac{A \cdot B}{\Vert A \Vert \Vert B \Vert}\). \textit{E}-score is calculated by taking the cosine similarity between the embedding vectors from two \glspl{residue}.
+
+In calculating sequence alignment using the \textit{E}-score method, the cosine similarity results were mostly mostly less than \(\frac{\pi}{2}\). ProtT5 had the best performance (\cite{Ashrafzadeh:2023}).
+
+\section{Analysis and Research Gap}
+There is no research analyzing results and properties contributing to improved embedding performance for comparable models to the \textit{E}-score method using protein transformers. Fine-tuning \gls{LLM} is a powerful technique to leverage pre-trained models and adapt them to perform better at a specific task or tasks. Fine-tuning can be improved upon using insights such as those taken from this research. The purpose of fine-tuning is to avoid the need to pre-train a model from scratch for a task; instead relying on powerful pre-trained models and modifying them to better suit the task.
+
+Supervised learning involves providing the model with a labeled dataset, and the model will learn to map the input to the output by minimizing its loss function (\cite{Mohri:2018}). Reinforcement learning involves providing a reward signal to the model when it generates a desired output, and the model learns to generate the desired output for a task by maximizing the reward signal (\cite{Sutton:1998}). Both of these tasks can be leveraged along with novel conclusions from this research to better fine-tune models for \textit{E}-score and for other tasks that follow similar procedures to draw unique conclusions. Fine-tuning techniques such as \gls{LoRA}, a technique that freezes the pre-trained weights and injects a trainable rank decomposition matrix into each layer of the architecture, can minimize compute intensity of fine-tuning procedures that this research can lead to.

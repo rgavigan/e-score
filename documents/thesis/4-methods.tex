@@ -1,0 +1,15 @@
+\chapter{Methodology}
+
+\section{Protein composition}
+Proteins are not completely random in nature. By determining the frequencies of amino acids in our dataset of protein sequences, we showcase that there is not an equal distribution of amino acids present in nature. We also use these frequencies to perform a simulation on completely random proteins for a given length \(n\) of a polypeptide. By simulating every combination and calculating the cosine similarity for a given length of proteins using only the frequency of amino acids as a constraint, we are able to outline one factor contributing to observed cosine similarity results (\hyperlink{O1}{O1}).
+
+\section{Embeddings and cosine similarity}
+By applying the above analysis and further supporting it with more properties of proteins such as their secondary structures, we analyze and explain why cosine similarity results are mostly positive (\hyperlink{O2}{O2}, \hyperlink{O3}{O3}). Similar to how in \gls{NLP} we would observe documents having similar sentences (ex: e-mails always contain a selection of entry and closing statements such as "Good morning" and "Warm regards"), the rules that proteins follow would result in similarities between sequences.
+
+To support findings from embedding vector and cosine similarity analysis, background knowledge about the properties of different models is used to explain the performance differences (\hyperlink{O1}{O1}). Table \ref{tab:prottrans} highlights some key properties about the models available in the \textit{E}-score method.
+
+Results from the papers proposing each model are used to support findings in Chapter 5 (\hyperlink{O4}{O4}). Details regarding ProtTrans models, ESM-1b, and ESM2 are found in their respective papers (\cite{Elnaggar:2021, Elnaggar:2022, Rives:2021, Rao:2020, Lin:2022}).
+
+Empirical procedures involve obtaining and collecting data for natural and random protein sequences, using them as input for each model, and collecting information about embedding vector distributions and cosine similarity between embedding vectors for every generated embedding. Findings are validated through t-tests to determine statistical significance of results for embeddings and cosine similarity.
+
+Source code for these empirical procedures used to generate results is \href{https://github.com/rgavigan/e-score/blob/main/src/e-score.ipynb}{located on GitHub}. Empirical procedures use the following: embedding generation for selected sequences; normalization of embedding values for comparison; averaging embedding values for different models for both random and non-random sequences; and averaging cosine similarity between embeddings for both random and non-random sequences.

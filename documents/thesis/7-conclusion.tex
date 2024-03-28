@@ -1,0 +1,10 @@
+\chapter{Conclusions}
+This study aimed to address the limited insight into factors that contribute to better model performance in the \textit{E}-score alignment method (\cite{Ashrafzadeh:2023}). Objectives included understanding embedding distributions for models and for both random and non-random sequences (\hyperlink{O1}{O1}, \hyperlink{O2}{O2}); understanding cosine similarity between these embeddings(\hyperlink{O3}{O3}); and determining how we can improve models in task performance (\hyperlink{O4}{O4}). 
+
+\noindent Key results and conclusions:
+\begin{enumerate}
+    \item{Proteins are not random in nature. Amino acid frequencies are not equal and vary to form particular secondary, tertiary, and quaternary structures. The reference MSAs contain significantly different frequencies for all 20 common amino acids (Section 5.2).}
+    \item{\textit{E}-score model performance is correlated heavily with the size of a model. This is supported by ProtT5 (3 billion parameters) outperforming every other model, with ESM2 performing second best (650 million parameters) (Section 5.3).}
+    \item{Embedding value distributions with a higher variance perform better in the \textit{E}-score method. This is supported by ProtT5 significantly outperforming all other models with a much higher variance. For worst performing models, variance is constrained by the non-random nature of proteins with random sequences having a significantly higher variance (Section 5.4).}
+    \item{Cosine similarity distributions are heavily correlated with model performance. ProtT5, the best method, has an average cosine similarity close to 0. All other models over-represent positive cosine similarity results, implying that they fail to capture variation as well as ProtT5 (Section 5.5).}
+\end{enumerate}

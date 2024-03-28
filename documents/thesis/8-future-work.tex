@@ -1,0 +1,16 @@
+\chapter{Future Work and Lessons Learned}
+Using the ProtTrans \href{https://github.com/rgavigan/e-score/blob/fae7672033f51adc77030f33a62d16ab415d17f5/src/fine-tune-t5-per-protein.ipynb}{per-protein fine-tuning notebook} as a basis to fine-tune ProtT5 for the \textit{E}-score method may lead to significant performance benefits, especially if modified for other models. This requires significant modifications to the fine-tuning process:
+\begin{itemize}
+    \item{Fine-tune the model with the ProtT5 per-protein notebook as a basis, creating a LoRA adapter for the \textit{E}-score method.}
+    \item{Modify the fine-tuning notebook to work on pairs of inputs as opposed to a singular input, with penalties being assigned based on how far the \textit{E}-score alignment score for the pair of embeddings is from the true reference alignment.}
+\end{itemize}
+
+\noindent Significant lessons learned from this research:
+\begin{enumerate}
+    \item{Higher variance in produced embeddings is highly correlated to improved performance, meaning highly flexible models may be the key to improved \textit{E}-score performance.}
+    \item{Average cosine similarity results closer to 0 are highly correlated with better \textit{E}-score performance. Models that make use of the full -1...1 cosine similarity range with better-produced embeddings perform better than those with mostly positive results. Fine-tuning models to reach a mean of 0 is likely to lead to better performance.}
+    \item{The rules governing protein sequences observed in the world lead to higher cosine similarity results in all cases. Fine-tuning models to better capture variation while accounting for these properties (i.e. amino acid frequency) may lead to stronger results.}
+\end{enumerate}
+
+\section{Acknowledgements}
+Dr. Lucian Ilie provided feedback on the thesis proposal and guidance throughout the process to conduct research following the original \textit{E}-score paper (\cite{Ashrafzadeh:2023}).

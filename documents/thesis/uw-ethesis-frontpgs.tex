@@ -1,17 +1,13 @@
 % T I T L E   P A G E
-% -------------------
-% The title page is counted as page `i' but we need to suppress the
-% page number. Also, we don't want any headers or footers.
-\pagestyle{empty}
-\pagenumbering{roman}
-
-% The contents of the title page are specified in the "titlepage" environment.
 \begin{titlepage}
         \begin{center}
         \vspace*{1.0cm}
 
         \Huge
         {\bf Explaining embedding results for scoring alignments }
+
+        \large
+        Final Progress Report \\
 
         \vspace*{1.0cm}
 
@@ -34,71 +30,88 @@
 
         Department of Computer Science \\
         University of Western Ontario, London, N6A 5B7, Ontario, Canada \\
-        \the\year{} \\
+        \today \\
 
         \vspace*{1.0cm}
-
-        \copyright\ Riley Gavigan \the\year{} \\
         \end{center}
 \end{titlepage}
 
-% The rest of the front pages should contain no headers and be numbered using Roman numerals starting with `ii'
-\pagestyle{plain}
+% Define a new chapter format that doesn't display the chapter number
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{}{0pt}{\Huge}
+
 \setcounter{page}{2}
 
-\cleardoublepage % Ends the current page and causes all figures and tables that have so far appeared in the input to be printed.
-% In a two-sided printing style, it also makes the next page a right-hand (odd-numbered) page, producing a blank page if necessary.
-\phantomsection    % allows hyperref to link to the correct page
+\cleardoublepage
+\phantomsection
+
+\printglossary
+
+% L I S T   O F   A B B R E V I A T I O N S
+\renewcommand*{\abbreviationsname}{Abbreviations}
+\printglossary[type=abbreviations]
+\cleardoublepage
+\phantomsection
 
 % A B S T R A C T
 % ---------------
-\addcontentsline{toc}{chapter}{Abstract}
-\begin{center}\textbf{Abstract}\end{center}
+\chapter*{Structured Abstract}
+\addcontentsline{toc}{chapter}{Structured Abstract}
 
-Vulputate minim vel consequat praesent at vel iusto et, ex delenit, esse euismod luptatum augue ut sit et eu vel augue autem feugiat, quis ad dolore. Nulla vel, laoreet lobortis te commodo elit qui aliquam enim ex iriure ea ullamcorper nostrud lorem, lorem laoreet eu ex ut vel in zzril wisi quis. Nisl in autem praesent dignissim, sit vel aliquam at te, vero dolor molestie consequat.
+\subsubsection*{Context and motivation}
+The \textit{E}-score protein alignment scoring method \autocite{Ashrafzadeh:2023} outperforms state-of-the-art methods, supported by comparing ProtT5 \autocite{Elnaggar:2021} \textit{E}-score results with BLOSUM45 \autocite{Henikoff:1992}.
 
-Tation iriure sed wisi feugait odio dolore illum duis in accumsan velit illum consequat consequat ipsum molestie duis duis ut ullamcorper. Duis exerci odio blandit vero dolore eros odio amet et nisl in nostrud consequat iusto eum suscipit autem vero. Iusto dolore exerci, ut erat ex, magna in facilisis duis amet feugait augue accumsan zzril delenit aliquip dignissim at. Nisl molestie nibh, vulputate feugait nibh luptatum ea delenit nostrud dolore minim veniam odio volutpat delenit nulla accumsan eum vero ullamcorper eum. Augue velit veniam, dolor, exerci ea feugiat nulla molestie, veniam nonummy nulla dolore tincidunt, consectetuer dolore nulla ipsum commodo.
+This research aimed to understand \textit{E}-score results, building upon the observation that mean cosine similarity results between two embeddings are not evenly distributed.
 
-At nostrud lorem, lorem laoreet eu ex ut vel in zzril wisi. Suscipit consequat in autem praesent dignissim, sit vel aliquam at te, vero dolor molestie consequat eros tation facilisi diam dolor. Odio luptatum dolor in facilisis et facilisi et adipiscing suscipit eu iusto praesent enim, euismod consectetuer feugait duis. Odio veniam et iriure ad qui nonummy aliquip at qui augue quis vel diam, nulla. Autem exerci tation iusto, hendrerit et, tation esse consequat ut velit te dignissim eu esse eros facilisis lobortis, lobortis hendrerit esse dignissim nisl. Nibh nulla minim vel consequat praesent at vel iusto et, ex delenit, esse euismod luptatum.
+By understanding the underlying causes of the observed results, we can improve the \textit{E}-score method. Insights can be used to fine-tune the transformer models \autocite{Elnaggar:2021, Rives:2021} and performance of embeddings.
 
-Ut eum vero ullamcorper eum ad velit veniam, dolor, exerci ea feugiat nulla molestie, veniam nonummy nulla. Elit tincidunt, consectetuer dolore nulla ipsum commodo, ut, at qui blandit suscipit accumsan feugiat vel praesent. In dolor, ea elit suscipit nisl blandit hendrerit zzril. Sit enim, et dolore blandit illum enim duis feugiat velit consequat iriure sed wisi feugait odio dolore illum duis. Et accumsan velit illum consequat consequat ipsum molestie duis duis ut ullamcorper nulla exerci odio blandit vero dolore eros odio amet et.
+\subsubsection*{Research questions}
+\begin{itemize}
+    \item{What properties of embeddings produce better cosine similarity results?}
+    \item{Why do cosine similarity results primarily fall within a positive range?}
+    \item{How can models be fine-tuned to produce better embeddings?}
+\end{itemize}
+
+\subsubsection*{Principal ideas}
+Positive cosine similarity results imply the produced embeddings are mostly similar. Comparing different embedding types provides insight into their distributions. Through these comparisons, conclusions about properties that improve \textit{E}-score results were drawn.
+
+\subsubsection*{Research methodology}
+This research is a data science investigation to obtain insight about the embeddings and cosine similarity results in the \textit{E}-score method.
+
+\subsubsection*{Anticipated results}
+This study primarily aimed to obtain insight and knowledge for the \textit{E}-score method, specifically:
+\begin{itemize}
+    \item{Knowledge about the distributions of different embedding types}
+    \item{Knowledge about the cosine similarity between embeddings}
+    \item{Insight to fine-tune and improve models}
+\end{itemize}
+
+\subsubsection*{Novelty}
+By building upon a novel method for scoring protein alignments using cosine similarity \autocite{Ashrafzadeh:2023}, novel conclusions about embeddings and cosine similarity were made, leading to further research that can improve embeddings and models.
+
+\subsubsection*{Impact}
+Improvements in transformer models for the \textit{E}-score alignment scoring method can be made through the insight this research found. Improvements may also be applicable to \gls{NLP} Models such as T5 \autocite{Raffel:2020}.
+
+\subsubsection*{Progress and completed work}
+Insight into properties behind embedding type distributions was obtained. From these properties, cosine similarity results were explained. These properties were explained through conducted research and simulation in combination with insight from biochemical background research.
+
+\subsubsection*{Limitations}
+No limitations are known to exist in this research.
 
 \cleardoublepage
-\phantomsection    % allows hyperref to link to the correct page
+\phantomsection
 
 % T A B L E   O F   C O N T E N T S
 % ---------------------------------
 \renewcommand\contentsname{Table of Contents}
 \tableofcontents
 \cleardoublepage
-\phantomsection    % allows hyperref to link to the correct page
-
-% L I S T   O F   F I G U R E S
-% -----------------------------
-\addcontentsline{toc}{chapter}{List of Figures}
-\listoffigures
-\cleardoublepage
-\phantomsection		% allows hyperref to link to the correct page
-
-% L I S T   O F   T A B L E S
-% ---------------------------
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables
-\cleardoublepage
-\phantomsection		% allows hyperref to link to the correct page
-
-% L I S T   O F   A B B R E V I A T I O N S
-% ---------------------------
-\renewcommand*{\abbreviationsname}{List of Abbreviations}
-\printglossary[type=abbreviations]
-\cleardoublepage
-\phantomsection		% allows hyperref to link to the correct page
+\phantomsection
 
 % L I S T   O F   S Y M B O L S
 % ---------------------------
-%\printglossary[type=symbols]
 \cleardoublepage
-\phantomsection		% allows hyperref to link to the correct page
+\phantomsection
 
 % Change page numbering back to Arabic numerals
 \pagenumbering{arabic}
